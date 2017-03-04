@@ -9,6 +9,7 @@
     <p th:text="'First Name: ' + ${emailInfo.firstName}" />
     <p th:text="'Last Name: ' + ${emailInfo.lastName}" />
     <p th:text="'Number: ' + ${emailInfo.number}" />
+    <p th:text="'Domain: ' + ${emailInfo.domain}" />
     <h2>Email Addresses</h2>
     <p th:each="email : ${emailInfo.emails}">
         <p th:text="${email} + ','"/>

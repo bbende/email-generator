@@ -12,8 +12,6 @@ import java.util.List;
 @Controller
 public class EmailController {
 
-    static final String[] DOMAINS = { "@gmail.com", "@icloud.com" };
-
     @GetMapping("/email")
     public String emailForm(Model model) {
         model.addAttribute("emailInfo", new EmailInfo());
@@ -28,18 +26,15 @@ public class EmailController {
     }
 
     private List<String> generateEmails(EmailInfo emailInfo) {
-        final List<String> emails = new ArrayList<>();
-        for (String domain : DOMAINS) {
-            emails.addAll(generateEmails(emailInfo, domain));
-        }
-        return emails;
-    }
-
-    private List<String> generateEmails(EmailInfo emailInfo, String domain) {
         final String firstName = emailInfo.getFirstName() == null ? "" : emailInfo.getFirstName().trim().toLowerCase();
         final String firstInitial = firstName.length() > 0 ? firstName.substring(0,1) : "";
         final String lastName = emailInfo.getFirstName() == null ? "" : emailInfo.getLastName().trim().toLowerCase();
         final String number = emailInfo.getNumber() == null ? "" : emailInfo.getNumber().trim();
+
+        String domain = emailInfo.getDomain() == null ? "" : emailInfo.getDomain().trim().toLowerCase();
+        if (!domain.startsWith("@")) {
+            domain = "@" + domain;
+        }
 
         final List<String> emails = new ArrayList<>();
         emails.add(firstName + "." + lastName + domain);

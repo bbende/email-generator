@@ -7,6 +7,7 @@ public class EmailInfo {
     private String firstName;
     private String lastName;
     private String number;
+    private String domain = "@gmail.com";
     private List<String> emails;
 
     public String getFirstName() {
@@ -31,6 +32,14 @@ public class EmailInfo {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     public List<String> getEmails() {
