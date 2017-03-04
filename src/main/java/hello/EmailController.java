@@ -12,7 +12,7 @@ import java.util.List;
 @Controller
 public class EmailController {
 
-    static final String[] DOMAINS = { "@gmail.com", "@yahoo.com", "@hotmail.com" };
+    static final String[] DOMAINS = { "@gmail.com", "@icloud.com" };
 
     @GetMapping("/email")
     public String emailForm(Model model) {
@@ -36,32 +36,32 @@ public class EmailController {
     }
 
     private List<String> generateEmails(EmailInfo emailInfo, String domain) {
-        final String firstName = emailInfo.getFirstName() == null ? "" : emailInfo.getFirstName().trim();
+        final String firstName = emailInfo.getFirstName() == null ? "" : emailInfo.getFirstName().trim().toLowerCase();
         final String firstInitial = firstName.length() > 0 ? firstName.substring(0,1) : "";
-        final String lastName = emailInfo.getFirstName() == null ? "" : emailInfo.getLastName().trim();
+        final String lastName = emailInfo.getFirstName() == null ? "" : emailInfo.getLastName().trim().toLowerCase();
         final String number = emailInfo.getNumber() == null ? "" : emailInfo.getNumber().trim();
 
         final List<String> emails = new ArrayList<>();
-        emails.add(firstName + lastName + domain);
-        emails.add(lastName + firstName + domain);
         emails.add(firstName + "." + lastName + domain);
-        emails.add(lastName + "." + firstName + domain);
+        emails.add(firstName + "_" + lastName + domain);
+        emails.add(firstName + lastName + domain);
 
         if (!firstInitial.isEmpty()) {
             emails.add(firstInitial + lastName + domain);
             emails.add(firstInitial + "." + lastName + domain);
+            emails.add(firstInitial + "_" + lastName + domain);
         }
 
         // with number
         if (!number.isEmpty()) {
-            emails.add(firstName + lastName + number + domain);
-            emails.add(lastName + firstName + number + domain);
             emails.add(firstName + "." + lastName + number + domain);
-            emails.add(lastName + "." + firstName + number + domain);
+            emails.add(firstName + "_" + lastName + number +domain);
+            emails.add(firstName + lastName + number +domain);
 
             if (!firstInitial.isEmpty()) {
-                emails.add(firstInitial + lastName + number + domain);
-                emails.add(firstInitial + "." + lastName + number + domain);
+                emails.add(firstInitial + lastName + number +domain);
+                emails.add(firstInitial + "." + lastName + number +domain);
+                emails.add(firstInitial + "_" + lastName + number +domain);
             }
         }
 
